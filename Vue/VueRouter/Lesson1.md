@@ -1,4 +1,4 @@
-1) Vue-Router如何响应路由参数变化：
+1.  Vue-Router如何响应路由参数变化：
 由于两个路由都公用一个组件，比起销毁再创建复用显得更加高效。不过也就意味着，Vue的生命周期不再起作用，因此会出现内容不随着路由同步更新。
 可以通过简单的watch来监听对路由变化做出响应
 ```javascript
@@ -10,7 +10,6 @@ const user = {
 		}
 	}
 }
-
 // 或者使用beforeRouteUpdate导航守卫
 const user = {
 	templete: '...',
@@ -20,17 +19,15 @@ const user = {
 	}
 }
 ```
-
 还可以通过'动态的路径参数'达到效果`<router-view :key='$route.fullPath></router-view>`
 
-2）Vue-Router有哪几种导航钩子：
+2. Vue-Router有哪几种导航钩子：
 **全局前置守卫（router.beforeEach注册）**
 ```javascript
 const router = new VueRouter({ ... })
 router.beforeEach((to, from, next) => {
 	// ...
 })
-
 ```
 当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫resolve完之前一直处于**等待中**
 **全局解析守卫（router.beforeResolve注册）**
@@ -84,11 +81,13 @@ beforeRouteEnter(to, from, next) {
 }
 ```
 
-3) 完整的Vue-Router导航解析流程：
+3. 完整的Vue-Router导航解析流程：
 导航被触发 -> 在失活的组件里面调用离开守卫 -> 调用全局的beforeEach守卫 -> 在复用组件里调用beforeRouterUpdate守卫 -> 在路由配置里调用beforeEnter守卫 -> 解析异步路由组件 -> 在被激活的组件中调用beforeRouterEnter守卫 -> 调用全局的beforeRouterResolve守卫 -> 导航被确认 -> 调用全局的afterEach守卫 -> 触发DOM更新 -> 用创建好的实例调用beforeRouterEnter守卫中的next回调函数。
-4）Vue-Router有几种实例方法以及参数传递：
+
+4. Vue-Router有几种实例方法以及参数传递：
 [方法实例与参数传递](https://www.jianshu.com/p/2be6f131cec5?tdsourcetag=s_pcqq_aiomsg "方法实例与参数传递")
-5）Vue-Router动态路由匹配以及使用：
+
+5. Vue-Router动态路由匹配以及使用：
 我们经常需要把某种模式匹配到的路由映射到同一个组件。我们可以在**vue-router**的路由路径中使用"动态路径参数"来达到这个效果。
 ```javascript
 const User = {
@@ -100,14 +99,13 @@ const router = new VueRouter({
 		{ path: '/user/:id', component: User }
 	]
 })
-
 // 一个"路径参数"使用冒泡 ：标记。当匹配到一个路由时, 参数值会被设置到 this.$route.params , 可以在每个组件中使用
-
 const User = {
 	template: `div>user {{ $route.parmas.id }} </div>`
 }
 ```
-6）Vue-Router如何定义嵌套路由：
+
+6. Vue-Router如何定义嵌套路由：
 需要在顶层出口添加一个`<router-view>`, 要在嵌套的出口中渲染组件, 需要在 VueRouter 添加children配置
 ```javascript
 const User = {
@@ -118,7 +116,6 @@ const User = {
   </div>
 `
 }
-
 // children 配置
 const router = new VueRouter({
    router: [
@@ -141,7 +138,6 @@ const router = new VueRouter({
 	   }
    ]
 })
-
 // 基于上面的配置，当你访问/user/foo时，User出口不会匹配上任何子路由，所以无法渲染出任何东西，如果你想要渲染点什么，可以提供一个 空的 子路由：
 const Router = new VueRouter({
 	routes: [
@@ -157,10 +153,12 @@ const Router = new VueRouter({
 		}
 	]
 })
-
-
 ```
-7) `<router-link></router-link>`组件及其属性
-8）Vue-router实现路由懒加载
-9）Vue-router的两种模式：模式：hash模式和history模式
-10）history路由模式与后台的配合
+
+7. `<router-link></router-link>`组件及其属性
+
+8. Vue-router实现路由懒加载
+
+9. Vue-router的两种模式：模式：hash模式和history模式
+
+10. history路由模式与后台的配合
